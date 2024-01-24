@@ -1,0 +1,27 @@
+server:
+  error:
+    include-message: always
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: UFTU Students LC Application
+  profiles:
+    active: prod #test for Test Server, prod for production, loc for local
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+jwt:
+  token:
+    secret: donik_coin_system
+    validity: 86400000
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    tags-sorter: alpha
+    display-request-duration: true
+    operations-sorter: method
+    path: /docs
+    default-models-expand-depth: -1

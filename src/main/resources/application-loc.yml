@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/student_ls
+    username: donik_admin
+    password: 123654789.Doniyorrrtg
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        show_sql: true
+#        generate_statistics: true
+    hibernate:
+      ddl-auto: update
+
+upload:
+  folder: root/ProjectFiles
