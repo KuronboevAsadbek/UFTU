@@ -75,6 +75,7 @@ public class AdminController {
         return ResponseEntity.ok(fieldOfStudyRepository.findAll());
     }
 
+    @Operation(summary = "Yo'nalishlarni fakultet ID raqami bo'yicha olish uchun api")
     @GetMapping("/fieldOfStudy/{facultyId}")
     public ResponseEntity<?> getFieldOfStudyByFacultyId(@PathVariable Long facultyId) {
         return ResponseEntity.ok(fieldOfStudyRepository.findAllByFacultyId(facultyId));
