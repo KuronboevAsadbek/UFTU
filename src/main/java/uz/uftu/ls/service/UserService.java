@@ -7,7 +7,6 @@ import uz.uftu.ls.domain.dto.UserDTO;
 import uz.uftu.ls.domain.entity.User;
 
 import java.security.Principal;
-import java.util.List;
 
 public interface UserService {
 
@@ -18,4 +17,6 @@ public interface UserService {
     Boolean checkPassword(String password);
 
     ResponseDTO<Page<User>> getAllStudents(Pageable pageable, Long userId);
+
+    void deleteStudent(Long userId);
 }

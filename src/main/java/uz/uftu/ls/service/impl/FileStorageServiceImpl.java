@@ -44,6 +44,24 @@ public class FileStorageServiceImpl implements FileStorageService {
 
     }
 
+    public static ResponseEntity<FileUrlResource> getFileUrlResourceResponseEntity(@RequestParam(value = "hashId", required = false) String hashId, @RequestParam(value = "fileId", required = false) Long fileId, FileStorageService fileStorageService, String uploadFolder) throws MalformedURLException {
+        if (hashId == null && fileId == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        FileStorage fileStorage = null;
+        if (hashId == null) {
+            fileStorage = fileStorageService.findById(fileId).getData();
+        } else if (fileId == null) {
+            fileStorage = fileStorageService.findByHashId(hashId).getData();
+        }
+        assert fileStorage != null;
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; fileName=\"" + URLEncoder.encode(fileStorage.getName(), StandardCharsets.UTF_8) + "\"")
+                .contentType(MediaType.parseMediaType(fileStorage.getContentType()))
+                .contentLength(fileStorage.getFileSize())
+                .body(new FileUrlResource(String.format("%s/%s", uploadFolder, fileStorage.getUploadPath())));
+    }
+
     @Override
     public ResponseDTO<FileStorage> save(MultipartFile multipartFile, Long userId) {
         ResponseDTO<FileStorage> responseDTO = new ResponseDTO<>();
@@ -70,7 +88,7 @@ public class FileStorageServiceImpl implements FileStorageService {
                 fileStorage.getHashId(),
                 fileStorage.getExtension()));
         fileStorage = fileStorageRepository.save(fileStorage);
-        if (userId != null){
+        if (userId != null) {
             User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User topilmadi"));
             user.setFileStorage(fileStorage);
             userRepository.save(user);
@@ -143,23 +161,5 @@ public class FileStorageServiceImpl implements FileStorageService {
     public String cutFileOriginalName(String name) {
         int lastDotIndex = name.lastIndexOf(".");
         return name.substring(0, lastDotIndex);
-    }
-
-    public static ResponseEntity<FileUrlResource> getFileUrlResourceResponseEntity(@RequestParam(value = "hashId", required = false) String hashId, @RequestParam(value = "fileId", required = false) Long fileId, FileStorageService fileStorageService, String uploadFolder) throws MalformedURLException {
-        if (hashId == null && fileId == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        FileStorage fileStorage = null;
-        if (hashId == null) {
-            fileStorage = fileStorageService.findById(fileId).getData();
-        } else if (fileId == null) {
-            fileStorage = fileStorageService.findByHashId(hashId).getData();
-        }
-        assert fileStorage != null;
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; fileName=\"" + URLEncoder.encode(fileStorage.getName(), StandardCharsets.UTF_8) + "\"")
-                .contentType(MediaType.parseMediaType(fileStorage.getContentType()))
-                .contentLength(fileStorage.getFileSize())
-                .body(new FileUrlResource(String.format("%s/%s", uploadFolder, fileStorage.getUploadPath())));
     }
 }

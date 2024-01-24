@@ -3,7 +3,6 @@ package uz.uftu.ls.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import uz.uftu.ls.domain.entity.Faculty;
 import uz.uftu.ls.domain.entity.University;
 
 import java.util.List;

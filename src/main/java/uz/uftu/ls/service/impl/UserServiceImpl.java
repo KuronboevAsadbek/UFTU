@@ -16,7 +16,6 @@ import uz.uftu.ls.repository.UserRepository;
 import uz.uftu.ls.service.UserService;
 
 import java.security.Principal;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -79,4 +78,8 @@ public class UserServiceImpl implements UserService {
         return responseDTO;
     }
 
+    @Override
+    public void deleteStudent(Long userId) {
+        userRepository.deleteById(userId);
+    }
 }

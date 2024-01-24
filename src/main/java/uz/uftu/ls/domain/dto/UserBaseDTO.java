@@ -1,11 +1,11 @@
 package uz.uftu.ls.domain.dto;
 
-import uz.uftu.ls.domain.entity.FileStorage;
-import uz.uftu.ls.domain.enumeration.Role;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import uz.uftu.ls.domain.entity.FileStorage;
+import uz.uftu.ls.domain.enumeration.Role;
 
 @AllArgsConstructor
 @NoArgsConstructor
