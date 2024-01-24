@@ -1,10 +1,10 @@
 package uz.uftu.ls.exceptions;
 
-import uz.uftu.ls.domain.dto.ResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import uz.uftu.ls.domain.dto.ResponseDTO;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

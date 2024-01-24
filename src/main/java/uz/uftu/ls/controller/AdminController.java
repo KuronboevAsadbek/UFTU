@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import uz.uftu.ls.domain.dto.ResponseDTO;
 import uz.uftu.ls.domain.entity.*;
-import uz.uftu.ls.repository.*;
+import uz.uftu.ls.repository.FacultyRepository;
+import uz.uftu.ls.repository.FieldOfStudyRepository;
+import uz.uftu.ls.repository.ScienceRepository;
+import uz.uftu.ls.repository.UniversityRepository;
 import uz.uftu.ls.service.FileStorageService;
 import uz.uftu.ls.service.UserService;
 
@@ -106,4 +109,10 @@ public class AdminController {
         return ResponseEntity.ok(userService.getAllStudents(pageable, userId));
     }
 
+    @Operation(summary = "Studentni o'chirish uchun api", description = "param sifatida user_id beriladi (required = true)")
+    @DeleteMapping("/student/{userId}")
+    public ResponseEntity<?> deleteStudent(@PathVariable Long userId) {
+        userService.deleteStudent(userId);
+        return ResponseEntity.ok().build();
+    }
 }

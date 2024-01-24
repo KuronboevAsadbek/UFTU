@@ -1,10 +1,10 @@
 package uz.uftu.ls.repository;
 
-import uz.uftu.ls.domain.entity.FileStorage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import uz.uftu.ls.domain.entity.FileStorage;
 
 @Repository
 public interface FileStorageRepository extends JpaRepository<FileStorage, Long> {

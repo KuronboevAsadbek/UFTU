@@ -1,10 +1,5 @@
 package uz.uftu.ls.jwtUtils;
 
-import uz.uftu.ls.domain.dto.LoginResponseDTO;
-import uz.uftu.ls.domain.dto.ResponseDTO;
-import uz.uftu.ls.domain.entity.User;
-import uz.uftu.ls.exceptions.UserException;
-import uz.uftu.ls.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -17,6 +12,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import uz.uftu.ls.domain.dto.LoginResponseDTO;
+import uz.uftu.ls.domain.dto.ResponseDTO;
+import uz.uftu.ls.domain.entity.User;
+import uz.uftu.ls.exceptions.UserException;
+import uz.uftu.ls.repository.UserRepository;
 
 import java.util.Base64;
 import java.util.Date;
