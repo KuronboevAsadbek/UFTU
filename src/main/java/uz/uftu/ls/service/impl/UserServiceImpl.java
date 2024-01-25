@@ -29,6 +29,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void createUser(UserDTO userDTO, Principal principal) {
         log.info("The process of creating a user has started");
+        try {
+
 
         if (Boolean.TRUE.equals(checkUsername(userDTO.getUsername()))) {
             log.error("Bu username band, {}", userDTO.getUsername());
@@ -50,11 +52,20 @@ public class UserServiceImpl implements UserService {
         user.setRole(role);
 
         userRepository.save(user);
+        }catch (Exception e){
+            throw new UserException("Foydalanuvchi ro'yxatga olinmadi");
+        }
     }
 
     @Override
     public Boolean checkUsername(String username) {
-        return userRepository.existsByUsername(username);
+        try {
+            return userRepository.existsByUsername(username);
+
+        }catch (Exception e){
+            log.error("talaba topilmadi, {}", e.getMessage());
+            throw new UserException("talaba topilmadi");
+        }
     }
 
     @Override
@@ -64,6 +75,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseDTO<Page<User>> getAllStudents(Pageable pageable, Long userId) {
+        try {
+
         ResponseDTO<Page<User>> responseDTO = new ResponseDTO<>();
         Page<User> users;
         if (userId != null) {
@@ -76,10 +89,20 @@ public class UserServiceImpl implements UserService {
         responseDTO.setRecordsTotal(users.getTotalElements());
         responseDTO.setMessage("Talabalar ro'yxati muaffaqiyatli olindi");
         return responseDTO;
+        }catch (Exception e){
+            log.error("Talabalar ro'yxati bo'sh, {}", e.getMessage());
+            throw new UserException("Talabalar ro'yxati bo'sh");
+        }
     }
 
     @Override
     public void deleteStudent(Long userId) {
-        userRepository.deleteById(userId);
+        try{
+            userRepository.deleteById(userId);
+        }catch (Exception e){
+            log.error("Talaba o'chirilmadi, {}", e.getMessage());
+            throw new UserException("Talaba o'chirilmadi");
+        }
+
     }
 }
