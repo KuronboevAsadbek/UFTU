@@ -1,6 +1,7 @@
 package uz.uftu.ls.service;
 
 import uz.uftu.ls.domain.entity.Faculty;
+import uz.uftu.ls.domain.entity.University;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface FacultyService {
     void delete(Long id);
 
     List<Faculty> getAll();
+
+   List<Faculty> getAllByUniversityId(Long universityId);
 }
