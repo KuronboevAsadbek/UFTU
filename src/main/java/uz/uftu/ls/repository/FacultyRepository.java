@@ -1,6 +1,7 @@
 package uz.uftu.ls.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import uz.uftu.ls.domain.entity.Faculty;
@@ -15,4 +16,9 @@ public interface FacultyRepository extends JpaRepository<Faculty, Long> {
 
     @Query(value = "SELECT * FROM faculty WHERE is_deleted=False AND university_id=:universityId", nativeQuery = true)
     List<Faculty> findAllByUniversityId(Long universityId);
+
+    @Query(value = "UPDATE faculty SET is_deleted = True WHERE id=:id", nativeQuery = true)
+    @Modifying
+    void deleteById(Long id);
+
 }

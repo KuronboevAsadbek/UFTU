@@ -1,6 +1,7 @@
 package uz.uftu.ls.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import uz.uftu.ls.domain.entity.Science;
@@ -19,4 +20,8 @@ public interface ScienceRepository extends JpaRepository<Science, Long> {
             WHERE fs.id = ?1 AND fs.is_deleted = false AND s.is_deleted = false"""
             , nativeQuery = true)
     List<Science> findAllByFieldOfStudyId(Long fieldOfStudyId);
+
+    @Query(value = "UPDATE science SET is_deleted = True WHERE id=:id", nativeQuery = true)
+    @Modifying
+    void deleteById(Long id);
 }
