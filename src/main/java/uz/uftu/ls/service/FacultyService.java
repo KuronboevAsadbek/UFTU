@@ -10,7 +10,7 @@ public interface FacultyService {
 
     Faculty create(Faculty faculty);
 
-    Faculty update(Faculty faculty);
+    Faculty update(Faculty faculty, Long id);
 
     Faculty getById(Long id);
 

@@ -9,7 +9,7 @@ public interface FieldOfStudyService {
 
     FieldOfStudy create(FieldOfStudy fieldOfStudy);
 
-    FieldOfStudy update(FieldOfStudy fieldOfStudy);
+    FieldOfStudy update(FieldOfStudy fieldOfStudy, Long id);
 
     FieldOfStudy getById(Long id);
 

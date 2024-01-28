@@ -16,4 +16,7 @@ public interface UniversityRepository extends JpaRepository<University, Long> {
     @Query(value = "UPDATE university SET is_deleted = True WHERE id=:id", nativeQuery = true)
     @Modifying
     void deleteById(Long id);
+
+
+
 }
