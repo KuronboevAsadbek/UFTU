@@ -32,8 +32,12 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public Faculty update(Faculty faculty) {
+    public Faculty update(Faculty faculty, Long id) {
         try {
+            Faculty faculty1 = facultyRepository.findById(id).orElseThrow(()
+                    -> new FacultyException("Fakultet id bo'yicha qidirilmadi"));
+            faculty1.setName(faculty.getName());
+            faculty1.setUniversity(faculty.getUniversity());
             log.info("Fakultet yangilandi: {}", faculty);
             return facultyRepository.save(faculty);
 

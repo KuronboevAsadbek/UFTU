@@ -30,10 +30,12 @@ public class UniversityServiceImpl implements UniversityService {
     }
 
     @Override
-    public University update(University university) {
+    public University  update(University university, Long id) {
         try {
-            return universityRepository.save(university);
-
+            University university1 = universityRepository.findById(id).orElseThrow();
+            university1.setName(university.getName());
+            log.info("University updated");
+           return universityRepository.save(university1);
         }catch (Exception e){
             log.error("University not updated");
             throw new UniversityException("University not updated");

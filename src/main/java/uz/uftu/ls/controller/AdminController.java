@@ -146,4 +146,29 @@ public class AdminController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Fakultetni tahrirlash uchun api")
+    @PutMapping("/faculty")
+    public ResponseEntity<?> editFaculty(@RequestBody Faculty faculty , @RequestParam(required = false) Long id) {
+        return ResponseEntity.ok(facultyService.update(faculty, id));
+    }
+
+    @Operation(summary = "Yo'nalishni tahrirlash uchun api")
+    @PutMapping("/fieldOfStudy")
+    public ResponseEntity<?> editFieldOfStudy(@RequestBody FieldOfStudy fieldOfStudy, @RequestParam(required = false) Long id) {
+        return ResponseEntity.ok(fieldOfStudyService.update(fieldOfStudy, id));
+    }
+
+    @Operation(summary = "Fanlarni tahrirlash uchun api")
+    @PutMapping("/science")
+    public ResponseEntity<?> editScience(@RequestBody Science science, @RequestParam(required = false) Long id) {
+        return ResponseEntity.ok(scienceService.update(science, id));
+    }
+
+    @Operation(summary = "Universitetni tahrirlash uchun api")
+    @PutMapping("/university")
+    public ResponseEntity<?> editUniversity(@RequestBody University university, @RequestParam(required = false) Long id) {
+       return ResponseEntity.ok(universityService.update(university, id));
+
+    }
+
 }

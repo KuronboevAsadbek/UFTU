@@ -9,7 +9,7 @@ public interface ScienceService {
 
     Science create(Science science);
 
-    Science update(Science science);
+    Science update(Science science, Long id);
 
     Science getById(Long id);
 

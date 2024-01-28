@@ -29,10 +29,15 @@ public class FieldOfStudyServiceImpl implements FieldOfStudyService {
     }
 
     @Override
-    public FieldOfStudy update(FieldOfStudy fieldOfStudy) {
+    public FieldOfStudy update(FieldOfStudy fieldOfStudy, Long id) {
         try {
+            FieldOfStudy fieldOfStudy1 = fieldOfStudyRepository.findById(id).orElseThrow(()
+                    -> new FieldOfStudyException("FieldOfStudy id bo'yicha qidirilmadi"));
+            fieldOfStudy1.setName(fieldOfStudy.getName());
+            fieldOfStudy1.setFaculty(fieldOfStudy.getFaculty());
+
             log.info("FieldOfStudy yangilandi: {}", fieldOfStudy);
-            return fieldOfStudyRepository.save(fieldOfStudy);
+            return fieldOfStudyRepository.save(fieldOfStudy1);
 
         }catch (Exception e){
             log.error("FieldOfStudy yangilanmadi, {}", e.getMessage());
@@ -62,7 +67,9 @@ public class FieldOfStudyServiceImpl implements FieldOfStudyService {
     @Override
     public List<FieldOfStudy> getAll() {
        try {
+           log.info("FieldOfStudy list olinildi");
            return fieldOfStudyRepository.findAll();
+
        }catch (Exception e){
            log.error("FieldOfStudy bo'sh, {}", e.getMessage());
            throw new FieldOfStudyException("FieldOfStudy bo'sh");
@@ -72,6 +79,7 @@ public class FieldOfStudyServiceImpl implements FieldOfStudyService {
     @Override
     public List<FieldOfStudy> getAllByFacultyId(Long facultyId) {
        try {
+              log.info("FieldOfStudy list olinildi");
            return fieldOfStudyRepository.findAllByFacultyId(facultyId);
        }catch (Exception e){
            log.error("FieldOfStudy bo'sh, {}", e.getMessage());
