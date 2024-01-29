@@ -18,7 +18,7 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         final String securitySchemeName = "Bearer Token";
         final String apiTitle = String.format(StringUtils.capitalize("ID Group"));
-        final String[] developers = {"Azodov Doniyor", "Zafarbek Yoldoshev", "Asadbek Quronboev"};
+        final String[] developers = {"Azodov Doniyor", "Zafarbek Yoldoshev", "Asadbek Quronboyev"};
         final String apiDescription = String.format("""
                         Ushbu REST API %s uchun yaratilgan.\s
 

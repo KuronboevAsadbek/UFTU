@@ -66,8 +66,8 @@ public class SecurityConfiguration {
                                         "/error",
                                         "/admin/file/preview/**"
                                 ).permitAll()
-                                .requestMatchers("/**").hasRole("ADMIN")
                                 .requestMatchers("/student/**").hasRole("STUDENT")
+                                .requestMatchers("/**").hasRole("ADMIN")
                 )
                 .authenticationProvider(authenticationProvider())
                 .apply(new JwtConfigurer(jwtTokenProvider));

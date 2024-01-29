@@ -8,7 +8,6 @@ public interface FileStorageService {
     ResponseDTO<FileStorage> save(MultipartFile multipartFile, Long userId);
 
 
-
     ResponseDTO<FileStorage> findByHashId(String hashId);
 
     ResponseDTO<FileStorage> findById(Long fileId);
