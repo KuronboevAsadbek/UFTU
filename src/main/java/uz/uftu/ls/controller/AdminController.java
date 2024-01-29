@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import uz.uftu.ls.domain.dto.ResponseDTO;
 import uz.uftu.ls.domain.entity.*;
-import uz.uftu.ls.repository.FacultyRepository;
-import uz.uftu.ls.repository.FieldOfStudyRepository;
-import uz.uftu.ls.repository.ScienceRepository;
-import uz.uftu.ls.repository.UniversityRepository;
 import uz.uftu.ls.service.*;
 
 @RestController
@@ -119,7 +115,7 @@ public class AdminController {
     @DeleteMapping("/faculty/{id}")
     public ResponseEntity<?> deleteFaculty(@PathVariable Long id) {
         facultyService.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Deleted");
     }
 
     @Operation(summary = "fieldOfStudy ni o'chirish uchun api",
@@ -148,7 +144,7 @@ public class AdminController {
 
     @Operation(summary = "Fakultetni tahrirlash uchun api")
     @PutMapping("/faculty")
-    public ResponseEntity<?> editFaculty(@RequestBody Faculty faculty , @RequestParam(required = false) Long id) {
+    public ResponseEntity<?> editFaculty(@RequestBody Faculty faculty, @RequestParam(required = false) Long id) {
         return ResponseEntity.ok(facultyService.update(faculty, id));
     }
 
@@ -167,7 +163,7 @@ public class AdminController {
     @Operation(summary = "Universitetni tahrirlash uchun api")
     @PutMapping("/university")
     public ResponseEntity<?> editUniversity(@RequestBody University university, @RequestParam(required = false) Long id) {
-       return ResponseEntity.ok(universityService.update(university, id));
+        return ResponseEntity.ok(universityService.update(university, id));
 
     }
 

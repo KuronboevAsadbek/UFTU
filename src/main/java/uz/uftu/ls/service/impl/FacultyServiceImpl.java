@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import uz.uftu.ls.domain.entity.Faculty;
-import uz.uftu.ls.domain.entity.University;
 import uz.uftu.ls.exceptions.FacultyException;
 import uz.uftu.ls.repository.FacultyRepository;
 import uz.uftu.ls.service.FacultyService;
@@ -66,7 +65,7 @@ public class FacultyServiceImpl implements FacultyService {
             log.info("Fakultet id bo'yicha o'chirildi: {}", id);
             facultyRepository.deleteById(id);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Fakultet id bo'yicha o'chirilmadi, {}", e.getMessage());
             throw new FacultyException("Fakultet id bo'yicha o'chirilmadi");
         }
@@ -79,7 +78,7 @@ public class FacultyServiceImpl implements FacultyService {
             log.info("Fakultetlar ro'yxati olinildi");
             return facultyRepository.findAll();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Fakultetlar ro'yxati olinmadi, {}", e.getMessage());
             throw new FacultyException("Fakultetlar ro'yxati olinmadi");
         }
@@ -89,7 +88,7 @@ public class FacultyServiceImpl implements FacultyService {
     public List<Faculty> getAllByUniversityId(Long universityId) {
         try {
             return facultyRepository.findAllByUniversityId(universityId);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Fakultetlar ro'yxati olinmadi, {}", e.getMessage());
             throw new RuntimeException("Fakultetlar ro'yxati olinmadi");
         }

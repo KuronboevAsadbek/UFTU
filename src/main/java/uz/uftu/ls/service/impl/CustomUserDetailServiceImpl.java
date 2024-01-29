@@ -15,7 +15,6 @@ import java.util.Collections;
 
 @Component
 public class CustomUserDetailServiceImpl implements UserDetailsService {
-
     private final UserRepository userRepository;
 
     public CustomUserDetailServiceImpl(UserRepository userRepository) {

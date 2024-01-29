@@ -30,29 +30,27 @@ public class UserServiceImpl implements UserService {
     public void createUser(UserDTO userDTO, Principal principal) {
         log.info("The process of creating a user has started");
         try {
+            if (Boolean.TRUE.equals(checkUsername(userDTO.getUsername()))) {
+                log.error("Bu username band, {}", userDTO.getUsername());
+                throw new UserException("Bu username band");
+            }
 
+            User user = UserDTO.map2Entity(userDTO);
+            if (principal != null) {
+                user.setCreatedBy(principal.getName());
+            }
+            user.setUsername(userDTO.getUsername().trim().toLowerCase());
+            if (Boolean.TRUE.equals(checkPassword(userDTO.getPassword()))) {
+                user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+            } else {
+                log.error("Parol juda qisqa,{}", userDTO.getPassword());
+                throw new UserException("Parol juda qisqa");
+            }
+            Role role = Role.valueOf(userDTO.getRoleName());
+            user.setRole(role);
 
-        if (Boolean.TRUE.equals(checkUsername(userDTO.getUsername()))) {
-            log.error("Bu username band, {}", userDTO.getUsername());
-            throw new UserException("Bu username band");
-        }
-
-        User user = UserDTO.map2Entity(userDTO);
-        if (principal != null) {
-            user.setCreatedBy(principal.getName());
-        }
-        user.setUsername(userDTO.getUsername().trim().toLowerCase());
-        if (Boolean.TRUE.equals(checkPassword(userDTO.getPassword()))) {
-            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        } else {
-            log.error("Parol juda qisqa,{}", userDTO.getPassword());
-            throw new UserException("Parol juda qisqa");
-        }
-        Role role = Role.valueOf(userDTO.getRoleName());
-        user.setRole(role);
-
-        userRepository.save(user);
-        }catch (Exception e){
+            userRepository.save(user);
+        } catch (Exception e) {
             throw new UserException("Foydalanuvchi ro'yxatga olinmadi");
         }
     }
@@ -62,7 +60,7 @@ public class UserServiceImpl implements UserService {
         try {
             return userRepository.existsByUsername(username);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("talaba topilmadi, {}", e.getMessage());
             throw new UserException("talaba topilmadi");
         }
@@ -77,19 +75,19 @@ public class UserServiceImpl implements UserService {
     public ResponseDTO<Page<User>> getAllStudents(Pageable pageable, Long userId) {
         try {
 
-        ResponseDTO<Page<User>> responseDTO = new ResponseDTO<>();
-        Page<User> users;
-        if (userId != null) {
-            users = userRepository.findAllOrStudentId(pageable, userId);
-        } else {
-            users = userRepository.findAll(pageable);
-        }
-        responseDTO.setData(users);
-        responseDTO.setSuccess(true);
-        responseDTO.setRecordsTotal(users.getTotalElements());
-        responseDTO.setMessage("Talabalar ro'yxati muaffaqiyatli olindi");
-        return responseDTO;
-        }catch (Exception e){
+            ResponseDTO<Page<User>> responseDTO = new ResponseDTO<>();
+            Page<User> users;
+            if (userId != null) {
+                users = userRepository.findAllOrStudentId(pageable, userId);
+            } else {
+                users = userRepository.findAll(pageable);
+            }
+            responseDTO.setData(users);
+            responseDTO.setSuccess(true);
+            responseDTO.setRecordsTotal(users.getTotalElements());
+            responseDTO.setMessage("Talabalar ro'yxati muaffaqiyatli olindi");
+            return responseDTO;
+        } catch (Exception e) {
             log.error("Talabalar ro'yxati bo'sh, {}", e.getMessage());
             throw new UserException("Talabalar ro'yxati bo'sh");
         }
@@ -97,12 +95,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteStudent(Long userId) {
-        try{
+        try {
             userRepository.deleteById(userId);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Talaba o'chirilmadi, {}", e.getMessage());
             throw new UserException("Talaba o'chirilmadi");
         }
-
     }
 }

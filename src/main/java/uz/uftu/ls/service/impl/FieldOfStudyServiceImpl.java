@@ -17,12 +17,13 @@ public class FieldOfStudyServiceImpl implements FieldOfStudyService {
     //
 
     private final FieldOfStudyRepository fieldOfStudyRepository;
+
     @Override
     public FieldOfStudy create(FieldOfStudy fieldOfStudy) {
         try {
             log.info("FieldOfStudy qo'shildi: {}", fieldOfStudy);
             return fieldOfStudyRepository.save(fieldOfStudy);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("FieldOfStudy qo'shilmadi, {}", e.getMessage());
             throw new FieldOfStudyException("FieldOfStudy qo'shilmadi");
         }
@@ -39,7 +40,7 @@ public class FieldOfStudyServiceImpl implements FieldOfStudyService {
             log.info("FieldOfStudy yangilandi: {}", fieldOfStudy);
             return fieldOfStudyRepository.save(fieldOfStudy1);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("FieldOfStudy yangilanmadi, {}", e.getMessage());
             throw new FieldOfStudyException("FieldOfStudy yangilanmadi");
         }
@@ -57,7 +58,7 @@ public class FieldOfStudyServiceImpl implements FieldOfStudyService {
         try {
             log.info("FieldOfStudy id bo'yicha o'chirildi: {}", id);
             fieldOfStudyRepository.deleteById(id);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("FieldOfStudy id bo'yicha o'chirilmadi, {}", e.getMessage());
             throw new FieldOfStudyException("FieldOfStudy id bo'yicha o'chirilmadi");
         }
@@ -66,24 +67,24 @@ public class FieldOfStudyServiceImpl implements FieldOfStudyService {
 
     @Override
     public List<FieldOfStudy> getAll() {
-       try {
-           log.info("FieldOfStudy list olinildi");
-           return fieldOfStudyRepository.findAll();
+        try {
+            log.info("FieldOfStudy list olinildi");
+            return fieldOfStudyRepository.findAll();
 
-       }catch (Exception e){
-           log.error("FieldOfStudy bo'sh, {}", e.getMessage());
-           throw new FieldOfStudyException("FieldOfStudy bo'sh");
-       }
+        } catch (Exception e) {
+            log.error("FieldOfStudy bo'sh, {}", e.getMessage());
+            throw new FieldOfStudyException("FieldOfStudy bo'sh");
+        }
     }
 
     @Override
     public List<FieldOfStudy> getAllByFacultyId(Long facultyId) {
-       try {
-              log.info("FieldOfStudy list olinildi");
-           return fieldOfStudyRepository.findAllByFacultyId(facultyId);
-       }catch (Exception e){
-           log.error("FieldOfStudy bo'sh, {}", e.getMessage());
-           throw new FieldOfStudyException("FieldOfStudy bo'sh");
-       }
+        try {
+            log.info("FieldOfStudy list olinildi");
+            return fieldOfStudyRepository.findAllByFacultyId(facultyId);
+        } catch (Exception e) {
+            log.error("FieldOfStudy bo'sh, {}", e.getMessage());
+            throw new FieldOfStudyException("FieldOfStudy bo'sh");
+        }
     }
 }

@@ -18,5 +18,4 @@ public interface UniversityRepository extends JpaRepository<University, Long> {
     void deleteById(Long id);
 
 
-
 }
