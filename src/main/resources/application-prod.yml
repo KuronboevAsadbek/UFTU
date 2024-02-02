@@ -1,9 +1,9 @@
 server:
-  port: 8080
+  port: 8088
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/university
+    url: jdbc:postgresql://localhost:5432/university-lc
     username: donik_admin
     password: 123654789.Doniyorrrtg
   jpa:
@@ -14,4 +14,4 @@ spring:
       ddl-auto: update
 
 upload:
-  folder: UFTU/public
+  folder: UFTU-Lc/public
