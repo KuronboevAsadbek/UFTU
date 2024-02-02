@@ -1,5 +1,6 @@
 package uz.uftu.ls.service.impl;
 
+import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.hashids.Hashids;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import uz.uftu.ls.domain.dto.ResponseDTO;
@@ -33,13 +35,15 @@ public class FileStorageServiceImpl implements FileStorageService {
 
     private final FileStorageRepository fileStorageRepository;
     private final UserRepository userRepository;
+    private final EntityManager entityManager;
     private final Hashids hashids;
     @Value("${upload.folder}")
     private String uploadFolder;
 
-    public FileStorageServiceImpl(FileStorageRepository fileStorageRepository, UserRepository userRepository) {
+    public FileStorageServiceImpl(FileStorageRepository fileStorageRepository, UserRepository userRepository, EntityManager entityManager) {
         this.fileStorageRepository = fileStorageRepository;
         this.userRepository = userRepository;
+        this.entityManager = entityManager;
         this.hashids = new Hashids(getClass().getName(), 6);
 
     }
@@ -63,7 +67,8 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public ResponseDTO<FileStorage> save(MultipartFile multipartFile, Long userId) {
+    @Transactional
+    public ResponseDTO<FileStorage> save(MultipartFile multipartFile, Long userId, Long scienceId) {
         ResponseDTO<FileStorage> responseDTO = new ResponseDTO<>();
         FileStorage fileStorage = new FileStorage();
         fileStorage.setName(multipartFile.getOriginalFilename());
@@ -93,6 +98,14 @@ public class FileStorageServiceImpl implements FileStorageService {
             user.setFileStorage(fileStorage);
             userRepository.save(user);
         }
+
+        if (scienceId != null) {
+            entityManager.createNativeQuery("INSERT INTO file_storage_science (file_storage_id, science_id) VALUES (?, ?)")
+                    .setParameter(1, fileStorage.getId())
+                    .setParameter(2, scienceId)
+                    .executeUpdate();
+        }
+
         uploadFolder = uploadFolder.getAbsoluteFile();
         File file = new File(uploadFolder, String.format("%s.%s", fileStorage.getHashId(), fileStorage.getExtension()));
         try {
@@ -104,7 +117,6 @@ public class FileStorageServiceImpl implements FileStorageService {
         responseDTO.setMessage("Fayl mufoqiyatli yuklandi");
         responseDTO.setData(fileStorage);
         return responseDTO;
-
 
     }
 

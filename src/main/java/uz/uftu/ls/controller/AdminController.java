@@ -24,11 +24,15 @@ public class AdminController {
     private final FieldOfStudyService fieldOfStudyService;
     private final UniversityService universityService;
 
-    @Operation(summary = "UserAvatar Yuklash uchun api")
+    @Operation(summary = "User Avatar, Fan uchun fayl, yoki boshqa fayllarni yuklash uchun api")
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ResponseDTO<FileStorage>> upload(@RequestParam("file") MultipartFile multipartFile,
-                                                           @RequestParam(required = false) Long userId) {
-        return new ResponseEntity<>(fileStorageService.save(multipartFile, userId), HttpStatus.CREATED);
+                                                           @RequestParam(required = false) Long userId,
+                                                           @RequestParam(required = false) Long scienceId) {
+        System.out.println("userId = " + userId);
+        System.out.println("scienceId = " + scienceId);
+        System.out.println("multipartFile = " + multipartFile.getOriginalFilename());
+        return new ResponseEntity<>(fileStorageService.save(multipartFile, userId, scienceId), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Universitet qo'shish uchun api")

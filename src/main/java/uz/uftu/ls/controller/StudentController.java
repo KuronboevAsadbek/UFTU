@@ -18,6 +18,7 @@ import uz.uftu.ls.service.StudentService;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 
 import static uz.uftu.ls.service.impl.FileStorageServiceImpl.getFileUrlResourceResponseEntity;
@@ -50,11 +51,11 @@ public class StudentController {
 
     @Operation(summary = "Fayl yuklash")
     @GetMapping(value = "/download", consumes = MediaType.ALL_VALUE, produces = MediaType.ALL_VALUE)
-    public ResponseEntity downloadFile(@RequestParam String hashId) throws IOException {
+    public ResponseEntity<?> downloadFile(@RequestParam String hashId) throws IOException {
 
         ResponseDTO<FileStorage> fileStorage = fileStorageService.findByHashId(hashId);
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; fileName=\"" + URLEncoder.encode(fileStorage.getData().getName()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; fileName=\"" + URLEncoder.encode(fileStorage.getData().getOriginalName(), StandardCharsets.UTF_8) + "\"")
                 .contentType(MediaType.parseMediaType(fileStorage.getData().getContentType()))
                 .contentLength(fileStorage.getData().getFileSize())
                 .body(new FileUrlResource(String.format("%s/%s", uploadFolder, fileStorage.getData().getUploadPath())));

@@ -5,8 +5,7 @@ import uz.uftu.ls.domain.dto.ResponseDTO;
 import uz.uftu.ls.domain.entity.FileStorage;
 
 public interface FileStorageService {
-    ResponseDTO<FileStorage> save(MultipartFile multipartFile, Long userId);
-
+    ResponseDTO<FileStorage> save(MultipartFile multipartFile, Long userId, Long scienceId);
 
     ResponseDTO<FileStorage> findByHashId(String hashId);
 
