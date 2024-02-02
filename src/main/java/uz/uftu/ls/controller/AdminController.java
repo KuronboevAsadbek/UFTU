@@ -29,9 +29,7 @@ public class AdminController {
     public ResponseEntity<ResponseDTO<FileStorage>> upload(@RequestParam("file") MultipartFile multipartFile,
                                                            @RequestParam(required = false) Long userId,
                                                            @RequestParam(required = false) Long scienceId) {
-        System.out.println("userId = " + userId);
-        System.out.println("scienceId = " + scienceId);
-        System.out.println("multipartFile = " + multipartFile.getOriginalFilename());
+
         return new ResponseEntity<>(fileStorageService.save(multipartFile, userId, scienceId), HttpStatus.CREATED);
     }
 
