@@ -13,7 +13,5 @@ public interface FileStorageService {
 
     ResponseDTO<String> delete(String hashId);
 
-    FileStorage getOneFileStorage(Long id);
-
     String cutFileOriginalName(String name);
 }
