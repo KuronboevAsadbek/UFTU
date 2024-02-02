@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import uz.uftu.ls.domain.dto.ResponseDTO;
 import uz.uftu.ls.domain.entity.FileStorage;
 import uz.uftu.ls.domain.entity.User;
+import uz.uftu.ls.exceptions.UserException;
 import uz.uftu.ls.repository.FileStorageRepository;
 import uz.uftu.ls.repository.UserRepository;
 import uz.uftu.ls.service.FileStorageService;
@@ -69,6 +70,10 @@ public class FileStorageServiceImpl implements FileStorageService {
     @Override
     @Transactional
     public ResponseDTO<FileStorage> save(MultipartFile multipartFile, Long userId, Long scienceId) {
+
+        if(multipartFile.isEmpty() || userId == null && scienceId == null) {
+            throw new UserException("Fayl yoki foydalanuvchi yoki fan topilmadi");
+        }
         ResponseDTO<FileStorage> responseDTO = new ResponseDTO<>();
         FileStorage fileStorage = new FileStorage();
         fileStorage.setName(multipartFile.getOriginalFilename());
@@ -165,10 +170,7 @@ public class FileStorageServiceImpl implements FileStorageService {
         return ext;
     }
 
-    @Override
-    public FileStorage getOneFileStorage(Long id) {
-        return fileStorageRepository.findById(id).orElseThrow(() -> new RuntimeException("File topilmadi"));
-    }
+
 
     @Override
     public String cutFileOriginalName(String name) {
