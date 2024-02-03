@@ -69,13 +69,17 @@ public class FileStorageServiceImpl implements FileStorageService {
 
     @Override
     @Transactional
-    public ResponseDTO<FileStorage> save(MultipartFile multipartFile, Long userId, Long scienceId) {
+    public ResponseDTO<FileStorage> save(MultipartFile multipartFile, Long userId, Long scienceId, String customName) {
 
         if(multipartFile.isEmpty() || userId == null && scienceId == null) {
             throw new UserException("Fayl yoki foydalanuvchi yoki fan topilmadi");
         }
+
         ResponseDTO<FileStorage> responseDTO = new ResponseDTO<>();
         FileStorage fileStorage = new FileStorage();
+        if (customName != null) {
+            fileStorage.setCustomName(customName);
+        }
         fileStorage.setName(multipartFile.getOriginalFilename());
         fileStorage.setOriginalName(cutFileOriginalName(Objects.requireNonNull(multipartFile.getOriginalFilename())));
         fileStorage.setExtension(getExt(multipartFile.getOriginalFilename()));
