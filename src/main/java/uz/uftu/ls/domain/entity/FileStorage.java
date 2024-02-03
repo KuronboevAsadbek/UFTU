@@ -35,4 +35,6 @@ public class FileStorage implements Serializable {
     private String contentType;
 
     private String uploadPath;
+
+    private String customName;
 }

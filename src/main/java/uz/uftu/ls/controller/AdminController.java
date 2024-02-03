@@ -28,9 +28,10 @@ public class AdminController {
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ResponseDTO<FileStorage>> upload(@RequestParam("file") MultipartFile multipartFile,
                                                            @RequestParam(required = false) Long userId,
-                                                           @RequestParam(required = false) Long scienceId) {
+                                                           @RequestParam(required = false) Long scienceId,
+                                                           @RequestParam(required = false) String customName) {
 
-        return new ResponseEntity<>(fileStorageService.save(multipartFile, userId, scienceId), HttpStatus.CREATED);
+        return new ResponseEntity<>(fileStorageService.save(multipartFile, userId, scienceId, customName), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Universitet qo'shish uchun api")
