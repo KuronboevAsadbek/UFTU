@@ -11,8 +11,6 @@ public interface ScienceService {
 
     Science update(Science science, Long id);
 
-    Science getById(Long id);
-
     void delete(Long id);
 
     List<Science> getAll();

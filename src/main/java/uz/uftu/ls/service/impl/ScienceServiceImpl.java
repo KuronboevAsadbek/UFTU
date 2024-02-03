@@ -55,13 +55,6 @@ public class ScienceServiceImpl implements ScienceService {
     }
 
     @Override
-    public Science getById(Long id) {
-        log.info("Science id bo'yicha qidirildi: {}", id);
-        return scienceRepository.findById(id).orElseThrow(()
-                -> new RuntimeException("Science id bo'yicha qidirilmadi"));
-    }
-
-    @Override
     public void delete(Long id) {
         try {
             log.info("Science id bo'yicha o'chirildi: {}", id);
