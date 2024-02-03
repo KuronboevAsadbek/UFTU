@@ -1,10 +1,14 @@
 package uz.uftu.ls.service.impl;
 
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import uz.uftu.ls.domain.entity.FieldOfStudy;
 import uz.uftu.ls.domain.entity.Science;
 import uz.uftu.ls.exceptions.ScienceException;
+import uz.uftu.ls.repository.FieldOfStudyRepository;
 import uz.uftu.ls.repository.ScienceRepository;
 import uz.uftu.ls.service.ScienceService;
 
@@ -15,13 +19,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ScienceServiceImpl implements ScienceService {
     private final ScienceRepository scienceRepository;
+    private final FieldOfStudyRepository fieldOfStudyRepository;
+    private final EntityManager entityManager;
 
     @Override
-    public Science create(Science science) {
+    @Transactional
+    public Science create(Science science, Long fieldOfStudyId) {
+        FieldOfStudy fieldOfStudy = fieldOfStudyRepository.findById(fieldOfStudyId).orElseThrow();
         try {
             log.info("Science qo'shildi: {}", science);
-            return scienceRepository.save(science);
-
+            Science savedScience = scienceRepository.save(science);
+            entityManager.createNativeQuery("INSERT INTO field_of_study_science (field_of_study_id, science_id) VALUES (?, ?)")
+                    .setParameter(1, fieldOfStudy.getId())
+                    .setParameter(2, savedScience.getId())
+                    .executeUpdate();
+            return savedScience;
         } catch (Exception e) {
             log.error("Science qo'shilmadi, {}", e.getMessage());
             throw new ScienceException("Science qo'shilmadi");

@@ -83,8 +83,8 @@ public class AdminController {
 
     @Operation(summary = "Fan qo'shish uchun api")
     @PostMapping("/science")
-    public ResponseEntity<?> addScience(@RequestBody Science science) {
-        return ResponseEntity.ok(scienceService.create(science));
+    public ResponseEntity<?> addScience(@RequestBody Science science, @RequestParam Long fieldOfStudyId) {
+        return ResponseEntity.ok(scienceService.create(science, fieldOfStudyId));
     }
 
     @Operation(summary = "Fanlarni olish uchun api")
