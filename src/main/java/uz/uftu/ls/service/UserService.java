@@ -19,4 +19,6 @@ public interface UserService {
     ResponseDTO<Page<User>> getAllStudents(Pageable pageable, Long userId);
 
     void deleteStudent(Long userId);
+
+    User getMe (Principal principal);
 }

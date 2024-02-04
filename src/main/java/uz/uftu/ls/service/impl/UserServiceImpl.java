@@ -102,4 +102,9 @@ public class UserServiceImpl implements UserService {
             throw new UserException("Talaba o'chirilmadi");
         }
     }
+
+    @Override
+    public User getMe(Principal principal) {
+        return userRepository.findByUsername(principal.getName());
+    }
 }

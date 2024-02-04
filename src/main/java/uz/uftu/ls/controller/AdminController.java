@@ -12,6 +12,8 @@ import uz.uftu.ls.domain.dto.ResponseDTO;
 import uz.uftu.ls.domain.entity.*;
 import uz.uftu.ls.service.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/admin")
 @RequiredArgsConstructor
@@ -169,5 +171,7 @@ public class AdminController {
         return ResponseEntity.ok(universityService.update(university, id));
 
     }
+
+
 
 }

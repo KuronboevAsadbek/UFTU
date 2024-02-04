@@ -67,4 +67,10 @@ public class UserJwtController {
             throw new UserException("Login yoki parol xato");
         }
     }
+
+    @Operation(summary = "Foydalanuvchi haqida ma'lumot olish", description = "Foydalanuvchi haqida ma'lumot olish")
+    @PostMapping("/getMe")
+    public ResponseEntity<?> getMe(Principal principal) {
+        return ResponseEntity.ok(userService.getMe(principal));
+    }
 }

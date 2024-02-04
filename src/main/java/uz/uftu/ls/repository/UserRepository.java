@@ -16,11 +16,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByUsername(String userName);
 
-    @Query(value = "SELECT * FROM users u where u.role = 'ROLE_STUDENT'", nativeQuery = true)
+    @Query(value = "SELECT * FROM users u where u.role = 'ROLE_STUDENT' AND u.id = ?1", nativeQuery = true)
     Page<User> findAllOrStudentId(Pageable pageable, Long userId);
 
     @Query(value = "UPDATE users SET is_deleted = True WHERE id = ?1", nativeQuery = true)
     @Transactional
     @Modifying
     void deleteById(Long userId);
+
+    @Query(value = "SELECT * FROM users u where u.role = 'ROLE_STUDENT'", nativeQuery = true)
+    Page<User> findAll(Pageable pageable);
 }
