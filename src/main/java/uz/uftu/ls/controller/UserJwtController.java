@@ -10,10 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uz.uftu.ls.controller.VM.LoginVM;
 import uz.uftu.ls.domain.dto.ResponseDTO;
 import uz.uftu.ls.domain.dto.UserDTO;
@@ -69,7 +66,7 @@ public class UserJwtController {
     }
 
     @Operation(summary = "Foydalanuvchi haqida ma'lumot olish", description = "Foydalanuvchi haqida ma'lumot olish")
-    @PostMapping("/getMe")
+    @GetMapping("/getMe")
     public ResponseEntity<?> getMe(Principal principal) {
         return ResponseEntity.ok(userService.getMe(principal));
     }
