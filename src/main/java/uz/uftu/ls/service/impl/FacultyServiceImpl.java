@@ -21,6 +21,7 @@ public class FacultyServiceImpl implements FacultyService {
     public Faculty create(Faculty faculty) {
         try {
             log.info("Fakultet qo'shildi: {}", faculty);
+            faculty.setIsDeleted(false);
             return facultyRepository.save(faculty);
 
         } catch (Exception e) {
@@ -31,15 +32,13 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public Faculty update(Faculty faculty, Long id) {
+    public Faculty update(Faculty faculty) {
         try {
-            Faculty faculty1 = facultyRepository.findById(id).orElseThrow(()
-                    -> new FacultyException("Fakultet id bo'yicha qidirilmadi"));
-            faculty1.setName(faculty.getName());
-            faculty1.setUniversity(faculty.getUniversity());
             log.info("Fakultet yangilandi: {}", faculty);
+            if (faculty.getIsDeleted() == null) {
+                faculty.setIsDeleted(false);
+            }
             return facultyRepository.save(faculty);
-
         } catch (Exception e) {
             log.error("Fakultet yangilanmadi, {}", e.getMessage());
             throw new RuntimeException("Fakultet yangilanmadi");
