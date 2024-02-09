@@ -10,8 +10,6 @@ public interface UniversityService {
 
     University update(University university, Long id);
 
-    University getById(Long id);
-
     void delete(Long id);
 
     List<University> getAll();

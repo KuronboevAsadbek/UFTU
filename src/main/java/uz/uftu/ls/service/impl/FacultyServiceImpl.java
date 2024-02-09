@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class FacultyServiceImpl implements FacultyService {
-    //
+
     private final FacultyRepository facultyRepository;
 
     @Override
@@ -43,19 +43,6 @@ public class FacultyServiceImpl implements FacultyService {
         } catch (Exception e) {
             log.error("Fakultet yangilanmadi, {}", e.getMessage());
             throw new RuntimeException("Fakultet yangilanmadi");
-        }
-    }
-
-    @Override
-    public Faculty getById(Long id) {
-        try {
-            log.info("Fakultet id bo'yicha qidirildi: {}", id);
-            return facultyRepository.findById(id).orElseThrow(()
-                    -> new FacultyException("Fakultet id bo'yicha qidirilmadi"));
-
-        } catch (Exception e) {
-            log.error("Fakultet id bo'yicha qidirilmadi, {}", e.getMessage());
-            throw new FacultyException("Fakultet id bo'yicha qidirilmadi");
         }
     }
 
@@ -93,5 +80,4 @@ public class FacultyServiceImpl implements FacultyService {
             throw new RuntimeException("Fakultetlar ro'yxati olinmadi");
         }
     }
-
 }

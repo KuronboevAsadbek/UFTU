@@ -12,7 +12,6 @@ import uz.uftu.ls.domain.enumeration.PaymentType;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Currency;
 
 @Getter
 @Setter

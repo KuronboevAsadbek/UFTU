@@ -43,12 +43,6 @@ public class UniversityServiceImpl implements UniversityService {
     }
 
     @Override
-    public University getById(Long id) {
-        log.info("University found");
-        return universityRepository.findById(id).orElseThrow(() -> new RuntimeException("University not found"));
-    }
-
-    @Override
     public void delete(Long id) {
         try {
             log.info("University deleted");

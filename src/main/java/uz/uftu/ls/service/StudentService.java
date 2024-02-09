@@ -5,7 +5,6 @@ import uz.uftu.ls.domain.entity.User;
 
 public interface StudentService {
 
-
     User getStudent(String userName);
 
 

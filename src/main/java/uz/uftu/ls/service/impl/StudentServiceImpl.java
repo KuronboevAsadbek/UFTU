@@ -12,7 +12,7 @@ import uz.uftu.ls.service.StudentService;
 @Slf4j
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
-    //
+
 
     private final UserRepository userRepository;
 

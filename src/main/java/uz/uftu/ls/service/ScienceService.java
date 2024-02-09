@@ -5,7 +5,7 @@ import uz.uftu.ls.domain.entity.Science;
 import java.util.List;
 
 public interface ScienceService {
-    //
+
 
     Science create(Science science, Long fieldOfStudyId);
 

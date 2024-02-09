@@ -5,13 +5,11 @@ import uz.uftu.ls.domain.entity.FieldOfStudy;
 import java.util.List;
 
 public interface FieldOfStudyService {
-    //
+
 
     FieldOfStudy create(FieldOfStudy fieldOfStudy);
 
     FieldOfStudy update(FieldOfStudy fieldOfStudy, Long id);
-
-    FieldOfStudy getById(Long id);
 
     void delete(Long id);
 
