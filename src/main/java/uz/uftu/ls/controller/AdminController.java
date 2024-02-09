@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import uz.uftu.ls.domain.dto.ResponseDTO;
+import uz.uftu.ls.domain.dto.UserDTO;
 import uz.uftu.ls.domain.entity.*;
 import uz.uftu.ls.service.*;
 
@@ -25,6 +26,7 @@ public class AdminController {
     private final ScienceService scienceService;
     private final FieldOfStudyService fieldOfStudyService;
     private final UniversityService universityService;
+    private final PaymentService paymentService;
 
     @Operation(summary = "User Avatar, Fan uchun fayl, yoki boshqa fayllarni yuklash uchun api")
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -169,9 +171,18 @@ public class AdminController {
     @PutMapping("/university")
     public ResponseEntity<?> editUniversity(@RequestBody University university, @RequestParam(required = false) Long id) {
         return ResponseEntity.ok(universityService.update(university, id));
-
     }
 
+    @Operation(summary = "Payment qo'shish uchun api")
+    @PostMapping("/payment")
+    public ResponseEntity<?> addPayment(@RequestBody Payment payment, @RequestParam(required = false) Long id) {
+        return ResponseEntity.ok(paymentService.createPayment(payment, id));
+    }
 
-
+    @Operation(summary = "Paymentni o'chirish uchun api")
+    @DeleteMapping("/payment/{id}")
+    public ResponseEntity<?> deletePayment(@PathVariable Long id) {
+        paymentService.deletePayment(id);
+        return ResponseEntity.ok().build();
+    }
 }
