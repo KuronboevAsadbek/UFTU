@@ -24,6 +24,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     void deleteById(Long userId);
 
-    @Query(value = "SELECT * FROM users u where u.role = 'ROLE_STUDENT'", nativeQuery = true)
+    @Query(value = "SELECT * FROM users u where u.role = 'ROLE_STUDENT' AND u.is_deleted = False", nativeQuery = true)
     Page<User> findAll(Pageable pageable);
 }
