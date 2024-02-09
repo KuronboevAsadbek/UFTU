@@ -7,7 +7,7 @@ spring:
   application:
     name: UFTU Students LC Application
   profiles:
-    active: asadbek #test for Test Server, prod for production, loc for local
+    active: prod #test for Test Server, prod for production, loc for local
   servlet:
     multipart:
       max-file-size: 1000MB

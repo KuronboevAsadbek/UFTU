@@ -1,5 +1,6 @@
 package uz.uftu.ls.domain.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -37,14 +38,27 @@ public class UserDTO {
     @NotNull
     private String roleName;
 
-    @NotNull
+
     private Long fieldOfStudyId;
+
+    private String address;
+
+    private String numberOfPersonalDocument;
+
+    private String contractNumber;
+
+
+
+
 
     public static User map2Entity(UserDTO userDTO) {
         User user = new User();
         user.setFirstName(userDTO.firstName);
         user.setLastName(userDTO.lastName);
         user.setUsername(userDTO.username);
+        user.setContactNumber(userDTO.contractNumber);
+        user.setNumberOfPersonalDocument(userDTO.numberOfPersonalDocument);
+        user.setAddress(userDTO.address);
         user.setRole(Role.valueOf(userDTO.roleName));
         if (userDTO.getFieldOfStudyId() != null) {
             FieldOfStudy fieldOfStudy = new FieldOfStudy();
