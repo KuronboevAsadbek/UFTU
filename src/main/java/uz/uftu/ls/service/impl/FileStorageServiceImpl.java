@@ -71,7 +71,7 @@ public class FileStorageServiceImpl implements FileStorageService {
     @Transactional
     public ResponseDTO<FileStorage> save(MultipartFile multipartFile, Long userId, Long scienceId, String customName) {
 
-        if(multipartFile.isEmpty() || userId == null && scienceId == null) {
+        if (multipartFile.isEmpty() || userId == null && scienceId == null) {
             throw new UserException("Fayl yoki foydalanuvchi yoki fan topilmadi");
         }
 
@@ -173,7 +173,6 @@ public class FileStorageServiceImpl implements FileStorageService {
         }
         return ext;
     }
-
 
 
     @Override

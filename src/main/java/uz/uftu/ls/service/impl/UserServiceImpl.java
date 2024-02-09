@@ -107,5 +107,5 @@ public class UserServiceImpl implements UserService {
     public User getMe(Principal principal) {
         return userRepository.findByUsername(principal.getName());
     }
-    
+
 }

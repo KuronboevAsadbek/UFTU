@@ -8,10 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uz.uftu.ls.domain.entity.Payment;
 import uz.uftu.ls.exceptions.PaymentException;
 import uz.uftu.ls.repository.PaymentRepository;
-import uz.uftu.ls.repository.UserRepository;
 import uz.uftu.ls.service.PaymentService;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,13 +16,14 @@ import java.util.List;
 public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository paymentRepository;
     private final EntityManager entityManager;
+
     @Override
     @Transactional
     public Payment createPayment(Payment payment, Long userId) {
         try {
             log.info("Creating payment");
             if (payment.getId() != null) {
-               return updatePayment(payment);
+                return updatePayment(payment);
             }
             Payment savedPayment = paymentRepository.save(payment);
             entityManager.createNativeQuery("INSERT INTO user_payments (user_id, payment_id) VALUES (?, ?)")
@@ -34,7 +32,7 @@ public class PaymentServiceImpl implements PaymentService {
                     .executeUpdate();
             return savedPayment;
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Error while creating payment", e);
             throw new PaymentException("Error while creating payment");
         }
@@ -47,7 +45,7 @@ public class PaymentServiceImpl implements PaymentService {
             log.info("Updating payment");
             paymentRepository.findById(payment.getId()).orElseThrow();
             return paymentRepository.save(payment);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Error while updating payment", e);
             throw new PaymentException("Error while updating payment");
 
@@ -66,7 +64,6 @@ public class PaymentServiceImpl implements PaymentService {
 
         }
     }
-
 
 
 }

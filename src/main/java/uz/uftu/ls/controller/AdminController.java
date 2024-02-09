@@ -9,11 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import uz.uftu.ls.domain.dto.ResponseDTO;
-import uz.uftu.ls.domain.dto.UserDTO;
 import uz.uftu.ls.domain.entity.*;
 import uz.uftu.ls.service.*;
-
-import java.security.Principal;
 
 @RestController
 @RequestMapping("/admin")

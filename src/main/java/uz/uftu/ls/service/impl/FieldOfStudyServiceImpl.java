@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class FieldOfStudyServiceImpl implements FieldOfStudyService {
-    //
+
 
     private final FieldOfStudyRepository fieldOfStudyRepository;
 
@@ -44,13 +44,6 @@ public class FieldOfStudyServiceImpl implements FieldOfStudyService {
             log.error("FieldOfStudy yangilanmadi, {}", e.getMessage());
             throw new FieldOfStudyException("FieldOfStudy yangilanmadi");
         }
-    }
-
-    @Override
-    public FieldOfStudy getById(Long id) {
-        log.info("FieldOfStudy id bo'yicha qidirildi: {}", id);
-        return fieldOfStudyRepository.findById(id).orElseThrow(()
-                -> new FieldOfStudyException("FieldOfStudy id bo'yicha qidirilmadi"));
     }
 
     @Override
