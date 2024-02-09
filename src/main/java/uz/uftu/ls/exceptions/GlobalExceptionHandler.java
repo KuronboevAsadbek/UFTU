@@ -44,4 +44,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(PaymentException.class)
+    public ResponseEntity<Object> handlePaymentException(PaymentException paymentException) {
+        String errorMessage = paymentException.getMessage();
+        ResponseDTO<Object> responseDTO = ResponseDTO.error(errorMessage, null);
+        return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

@@ -29,7 +29,8 @@ public class ScienceServiceImpl implements ScienceService {
         try {
             log.info("Science qo'shildi: {}", science);
             Science savedScience = scienceRepository.save(science);
-            entityManager.createNativeQuery("INSERT INTO field_of_study_science (field_of_study_id, science_id) VALUES (?, ?)")
+            entityManager.createNativeQuery("INSERT INTO field_of_study_science " +
+                            "(field_of_study_id, science_id) VALUES (?, ?)")
                     .setParameter(1, fieldOfStudy.getId())
                     .setParameter(2, savedScience.getId())
                     .executeUpdate();

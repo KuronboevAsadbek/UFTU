@@ -14,6 +14,7 @@ import uz.uftu.ls.domain.enumeration.Role;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -65,5 +66,22 @@ public class User implements Serializable {
 
     @ManyToOne
     private FileStorage fileStorage;
+
+    @Column(name = "last_login")
+    private Timestamp lastLogin;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "number_of_personal_document")
+    private String numberOfPersonalDocument;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_payments",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "payment_id", unique = true))
+    private Set<Payment> payments;
+
+
 
 }
