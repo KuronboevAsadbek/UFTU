@@ -37,12 +37,13 @@ public class UserJwtController {
 
     @Operation(summary = "Foydalanuvchi ro'yxatga olish uchun API", description = "Foydalanuvchi ro'yxatga olish uchun API")
     @PostMapping("/register")
-    public ResponseEntity<ResponseDTO<String>> createUser(@Valid @RequestBody UserDTO userDTO, Principal principal) {
+    public ResponseEntity<ResponseDTO<User>> createUser(@Valid @RequestBody UserDTO userDTO, Principal principal) {
         try {
             userService.createUser(userDTO, principal);
-            ResponseDTO<String> responseDto = new ResponseDTO<>();
+            ResponseDTO<User> responseDto = new ResponseDTO<>();
             responseDto.setMessage("Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tkazildi");
             responseDto.setSuccess(true);
+            responseDto.setData(userService.getByUsername(userDTO.getUsername()));
             return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
         } catch (Exception e) {
             throw new UserException(e.getMessage());
