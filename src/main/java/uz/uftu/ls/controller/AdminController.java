@@ -148,14 +148,14 @@ public class AdminController {
 
     @Operation(summary = "Fakultetni tahrirlash uchun api")
     @PutMapping("/faculty")
-    public ResponseEntity<?> editFaculty(@RequestBody Faculty faculty, @RequestParam(required = false) Long id) {
-        return ResponseEntity.ok(facultyService.update(faculty, id));
+    public ResponseEntity<?> editFaculty(@RequestBody Faculty faculty) {
+        return ResponseEntity.ok(facultyService.update(faculty));
     }
 
     @Operation(summary = "Yo'nalishni tahrirlash uchun api")
     @PutMapping("/fieldOfStudy")
-    public ResponseEntity<?> editFieldOfStudy(@RequestBody FieldOfStudy fieldOfStudy, @RequestParam(required = false) Long id) {
-        return ResponseEntity.ok(fieldOfStudyService.update(fieldOfStudy, id));
+    public ResponseEntity<?> editFieldOfStudy(@RequestBody FieldOfStudy fieldOfStudy) {
+        return ResponseEntity.ok(fieldOfStudyService.update(fieldOfStudy));
     }
 
     @Operation(summary = "Fanlarni tahrirlash uchun api")

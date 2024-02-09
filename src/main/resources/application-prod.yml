@@ -14,4 +14,4 @@ spring:
       ddl-auto: update
 
 upload:
-  folder: UFTU-Lc/public
+  folder: root/UFTU-Lc/public

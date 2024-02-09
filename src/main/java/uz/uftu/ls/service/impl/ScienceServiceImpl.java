@@ -26,18 +26,21 @@ public class ScienceServiceImpl implements ScienceService {
     @Transactional
     public Science create(Science science, Long fieldOfStudyId) {
         FieldOfStudy fieldOfStudy = fieldOfStudyRepository.findById(fieldOfStudyId).orElseThrow();
-        try {
-            log.info("Science qo'shildi: {}", science);
-            Science savedScience = scienceRepository.save(science);
-            entityManager.createNativeQuery("INSERT INTO field_of_study_science " +
-                            "(field_of_study_id, science_id) VALUES (?, ?)")
-                    .setParameter(1, fieldOfStudy.getId())
-                    .setParameter(2, savedScience.getId())
-                    .executeUpdate();
+        log.info("Science qo'shildi: {}", science);
+        Science savedScience = scienceRepository.save(science);
+        if (science.getId() == null) {
+            try {
+                entityManager.createNativeQuery("INSERT INTO student_ls.public.field_of_study_science (field_of_study_id, science_id) VALUES (?, ?)")
+                        .setParameter(1, fieldOfStudy.getId())
+                        .setParameter(2, savedScience.getId())
+                        .executeUpdate();
+                return savedScience;
+            } catch (Exception e) {
+                log.error("Science qo'shilmadi, {}", e.getMessage());
+                throw new ScienceException("Science qo'shilmadi");
+            }
+        } else {
             return savedScience;
-        } catch (Exception e) {
-            log.error("Science qo'shilmadi, {}", e.getMessage());
-            throw new ScienceException("Science qo'shilmadi");
         }
     }
 

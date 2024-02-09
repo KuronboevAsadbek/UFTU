@@ -23,6 +23,6 @@ public class Faculty {
     @ManyToOne
     private University university;
 
-    @Column(name = "is_deleted", nullable = false, columnDefinition = "boolean default false", insertable = false)
+    @Column(name = "is_deleted", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean isDeleted;
 }

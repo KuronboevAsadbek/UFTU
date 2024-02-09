@@ -22,6 +22,7 @@ public class FieldOfStudyServiceImpl implements FieldOfStudyService {
     public FieldOfStudy create(FieldOfStudy fieldOfStudy) {
         try {
             log.info("FieldOfStudy qo'shildi: {}", fieldOfStudy);
+            fieldOfStudy.setIsDeleted(false);
             return fieldOfStudyRepository.save(fieldOfStudy);
         } catch (Exception e) {
             log.error("FieldOfStudy qo'shilmadi, {}", e.getMessage());
@@ -30,15 +31,13 @@ public class FieldOfStudyServiceImpl implements FieldOfStudyService {
     }
 
     @Override
-    public FieldOfStudy update(FieldOfStudy fieldOfStudy, Long id) {
+    public FieldOfStudy update(FieldOfStudy fieldOfStudy) {
         try {
-            FieldOfStudy fieldOfStudy1 = fieldOfStudyRepository.findById(id).orElseThrow(()
-                    -> new FieldOfStudyException("FieldOfStudy id bo'yicha qidirilmadi"));
-            fieldOfStudy1.setName(fieldOfStudy.getName());
-            fieldOfStudy1.setFaculty(fieldOfStudy.getFaculty());
-
+            if (fieldOfStudy.getIsDeleted() == null) {
+                fieldOfStudy.setIsDeleted(false);
+            }
             log.info("FieldOfStudy yangilandi: {}", fieldOfStudy);
-            return fieldOfStudyRepository.save(fieldOfStudy1);
+            return fieldOfStudyRepository.save(fieldOfStudy);
 
         } catch (Exception e) {
             log.error("FieldOfStudy yangilanmadi, {}", e.getMessage());
