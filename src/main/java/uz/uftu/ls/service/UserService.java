@@ -22,5 +22,7 @@ public interface UserService {
 
     User getMe(Principal principal);
 
+    User getByUsername(String username);
+
 
 }
