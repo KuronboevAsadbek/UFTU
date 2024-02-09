@@ -76,6 +76,9 @@ public class User implements Serializable {
     @Column(name = "number_of_personal_document")
     private String numberOfPersonalDocument;
 
+    @Column(name = "сontact_number")
+    private String contactNumber;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_payments",
             joinColumns = @JoinColumn(name = "user_id"),
