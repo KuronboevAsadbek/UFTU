@@ -9,7 +9,7 @@ public interface ScienceService {
 
     Science create(Science science, Long fieldOfStudyId);
 
-    Science update(Science science, Long id);
+    Science update(Science science);
 
     void delete(Long id);
 

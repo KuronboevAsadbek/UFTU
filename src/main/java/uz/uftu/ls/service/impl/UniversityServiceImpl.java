@@ -21,6 +21,7 @@ public class UniversityServiceImpl implements UniversityService {
     public University create(University university) {
         try {
             log.info("University created");
+            university.setIsDeleted(false);
             return universityRepository.save(university);
 
         } catch (Exception e) {
@@ -30,12 +31,13 @@ public class UniversityServiceImpl implements UniversityService {
     }
 
     @Override
-    public University update(University university, Long id) {
+    public University update(University university) {
         try {
-            University university1 = universityRepository.findById(id).orElseThrow();
-            university1.setName(university.getName());
+            if (university.getId() == null) {
+                throw new UniversityException("University id is null");
+            }
             log.info("University updated");
-            return universityRepository.save(university1);
+            return universityRepository.save(university);
         } catch (Exception e) {
             log.error("University not updated");
             throw new UniversityException("University not updated");

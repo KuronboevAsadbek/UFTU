@@ -8,7 +8,7 @@ public interface UniversityService {
 
     University create(University university);
 
-    University update(University university, Long id);
+    University update(University university);
 
     void delete(Long id);
 
