@@ -27,6 +27,7 @@ public class ScienceServiceImpl implements ScienceService {
     public Science create(Science science, Long fieldOfStudyId) {
         FieldOfStudy fieldOfStudy = fieldOfStudyRepository.findById(fieldOfStudyId).orElseThrow();
         log.info("Science qo'shildi: {}", science);
+        science.setIsDeleted(false);
         Science savedScience = scienceRepository.save(science);
         if (science.getId() == null) {
             try {
@@ -45,12 +46,13 @@ public class ScienceServiceImpl implements ScienceService {
     }
 
     @Override
-    public Science update(Science science, Long id) {
+    public Science update(Science science) {
         try {
-            Science science1 = scienceRepository.findById(id).orElseThrow();
-            science1.setName(science.getName());
+            if (science.getIsDeleted() == null) {
+                science.setIsDeleted(false);
+            }
             log.info("Science yangilandi: {}", science);
-            return scienceRepository.save(science1);
+            return scienceRepository.save(science);
 
         } catch (Exception e) {
             log.error("Science yangilanmadi, {}", e.getMessage());
