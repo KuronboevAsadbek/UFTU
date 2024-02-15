@@ -34,6 +34,9 @@ public class User implements Serializable {
     @JsonProperty("last_name")
     private String lastName;
 
+    @JsonProperty("middle_name")
+    private String middleName;
+
     @NotNull
     @Column(unique = true, nullable = false, updatable = false)
     private String username;
