@@ -23,6 +23,8 @@ public class UserBaseDTO {
     @NotNull
     String lastName;
     @NotNull
+    String middleName;
+    @NotNull
     @Enumerated(EnumType.STRING)
     Role role;
     FileStorage fileStorage;

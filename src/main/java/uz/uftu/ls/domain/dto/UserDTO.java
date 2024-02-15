@@ -37,6 +37,9 @@ public class UserDTO {
     @NotNull
     private String roleName;
 
+    @NotNull
+    private String middleName;
+
 
     private Long fieldOfStudyId;
 
@@ -46,11 +49,14 @@ public class UserDTO {
 
     private String contractNumber;
 
+    private String createdBy;
+
 
     public static User map2Entity(UserDTO userDTO) {
         User user = new User();
         user.setFirstName(userDTO.firstName);
         user.setLastName(userDTO.lastName);
+        user.setCreatedBy(userDTO.createdBy);
         user.setUsername(userDTO.username);
         user.setContactNumber(userDTO.contractNumber);
         user.setNumberOfPersonalDocument(userDTO.numberOfPersonalDocument);
