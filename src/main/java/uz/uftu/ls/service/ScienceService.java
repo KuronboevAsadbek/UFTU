@@ -7,7 +7,7 @@ import java.util.List;
 public interface ScienceService {
 
 
-    Science create(Science science, Long fieldOfStudyId);
+    Science create(Science science, List<Long> fieldOfStudyId);
 
     Science update(Science science);
 

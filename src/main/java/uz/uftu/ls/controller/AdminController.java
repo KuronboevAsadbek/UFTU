@@ -12,6 +12,8 @@ import uz.uftu.ls.domain.dto.ResponseDTO;
 import uz.uftu.ls.domain.entity.*;
 import uz.uftu.ls.service.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin")
 @RequiredArgsConstructor
@@ -85,7 +87,7 @@ public class AdminController {
 
     @Operation(summary = "Fan qo'shish uchun api")
     @PostMapping("/science")
-    public ResponseEntity<?> addScience(@RequestBody Science science, @RequestParam Long fieldOfStudyId) {
+    public ResponseEntity<?> addScience(@RequestBody Science science, @RequestParam List<Long> fieldOfStudyId) {
         return ResponseEntity.ok(scienceService.create(science, fieldOfStudyId));
     }
 
