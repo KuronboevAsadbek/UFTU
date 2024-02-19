@@ -21,7 +21,6 @@ public class FacultyServiceImpl implements FacultyService {
     public Faculty create(Faculty faculty) {
         try {
             log.info("Fakultet qo'shildi: {}", faculty);
-            faculty.setIsDeleted(false);
             return facultyRepository.save(faculty);
 
         } catch (Exception e) {
@@ -35,9 +34,6 @@ public class FacultyServiceImpl implements FacultyService {
     public Faculty update(Faculty faculty) {
         try {
             log.info("Fakultet yangilandi: {}", faculty);
-            if (faculty.getIsDeleted() == null) {
-                faculty.setIsDeleted(false);
-            }
             return facultyRepository.save(faculty);
         } catch (Exception e) {
             log.error("Fakultet yangilanmadi, {}", e.getMessage());

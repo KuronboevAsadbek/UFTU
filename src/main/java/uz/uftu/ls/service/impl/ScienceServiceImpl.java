@@ -3,9 +3,9 @@ package uz.uftu.ls.service.impl;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uz.uftu.ls.domain.entity.FieldOfStudy;
 import uz.uftu.ls.domain.entity.Science;
 import uz.uftu.ls.exceptions.ScienceException;
 import uz.uftu.ls.repository.FieldOfStudyRepository;
@@ -24,39 +24,33 @@ public class ScienceServiceImpl implements ScienceService {
 
     @Override
     @Transactional
-    public Science create(Science science, Long fieldOfStudyId) {
-        FieldOfStudy fieldOfStudy = fieldOfStudyRepository.findById(fieldOfStudyId).orElseThrow();
-        log.info("Science qo'shildi: {}", science);
-        science.setIsDeleted(false);
-        Science savedScience = scienceRepository.save(science);
-        if (science.getId() == null) {
-            try {
-                entityManager.createNativeQuery("INSERT INTO student_ls.public.field_of_study_science (field_of_study_id, science_id) VALUES (?, ?)")
-                        .setParameter(1, fieldOfStudy.getId())
-                        .setParameter(2, savedScience.getId())
-                        .executeUpdate();
-                return savedScience;
-            } catch (Exception e) {
-                log.error("Science qo'shilmadi, {}", e.getMessage());
-                throw new ScienceException("Science qo'shilmadi");
+    public Science create(Science science, List<Long> fieldOfStudyId) {
+        fieldOfStudyId.stream().map(id -> fieldOfStudyRepository.findById(id).orElseThrow()).forEach(fieldOfStudy -> {
+            if (science.getId() == null) {
+                try {
+                    entityManager.createNativeQuery("INSERT INTO field_of_study_science (field_of_study_id, science_id) VALUES (?, ?)")
+                            .setParameter(1, fieldOfStudy.getId())
+                            .setParameter(2, scienceRepository.save(science).getId())
+                            .executeUpdate();
+                } catch (Exception e) {
+                    log.error("Science qo'shilmadi, {}", e.getMessage());
+                    throw new ScienceException("Science qo'shilmadi");
+                }
             }
-        } else {
-            return savedScience;
-        }
+        });
+        return science;
     }
 
     @Override
     public Science update(Science science) {
+
         try {
-            if (science.getIsDeleted() == null) {
-                science.setIsDeleted(false);
-            }
-            log.info("Science yangilandi: {}", science);
+            log.info("Science ma'lumotlari o'zgartirildi: {}", science);
             return scienceRepository.save(science);
 
         } catch (Exception e) {
-            log.error("Science yangilanmadi, {}", e.getMessage());
-            throw new ScienceException("Science yangilanmadi");
+            log.error("Science ma'lumotlari o'zgartirilmadi, {}", e.getMessage());
+            throw new ScienceException("Science ma'lumotlari o'zgartirilmadi");
         }
     }
 

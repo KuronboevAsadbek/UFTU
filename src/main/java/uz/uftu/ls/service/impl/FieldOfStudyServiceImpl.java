@@ -22,7 +22,6 @@ public class FieldOfStudyServiceImpl implements FieldOfStudyService {
     public FieldOfStudy create(FieldOfStudy fieldOfStudy) {
         try {
             log.info("FieldOfStudy qo'shildi: {}", fieldOfStudy);
-            fieldOfStudy.setIsDeleted(false);
             return fieldOfStudyRepository.save(fieldOfStudy);
         } catch (Exception e) {
             log.error("FieldOfStudy qo'shilmadi, {}", e.getMessage());
