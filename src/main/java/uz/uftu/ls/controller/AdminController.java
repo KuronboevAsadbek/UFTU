@@ -26,6 +26,7 @@ public class AdminController {
     private final FieldOfStudyService fieldOfStudyService;
     private final UniversityService universityService;
     private final PaymentService paymentService;
+    private final ListOfCount listOfCount;
 
     @Operation(summary = "User Avatar, Fan uchun fayl, yoki boshqa fayllarni yuklash uchun api")
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -183,5 +184,17 @@ public class AdminController {
     public ResponseEntity<?> deletePayment(@PathVariable Long id) {
         paymentService.deletePayment(id);
         return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "Umumiy statistika malumotlari apisi")
+    @GetMapping("/getStatistics")
+    public ResponseEntity<?> getCount() {
+        return ResponseEntity.ok(listOfCount.getListOfCount());
+    }
+
+    @Operation(summary = "Facultet bo'yicha studentlar sonini olish apisi")
+    @GetMapping("/getStatisticsByFacultyId")
+    public ResponseEntity<?> getCountByFaculty(@RequestParam Long facultyId) {
+        return ResponseEntity.ok(listOfCount.getListOfCountByFaculty(facultyId));
     }
 }
