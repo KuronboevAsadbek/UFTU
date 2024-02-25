@@ -48,9 +48,9 @@ public class ListOfCountImp implements ListOfCount {
                     SELECT 'total_eur_payments' as name, COALESCE(SUM(p.amount), 0) FROM payment p WHERE p.payment_status = 'PAID' AND p.currency = 'EUR'
                     """;
             Query query = entityManager.createNativeQuery(sql);
-            Object result = query.getResultList();
+            List<?> result = query.getResultList();
 
-            for (Object o : (List<?>) result) {
+            for (Object o : result) {
                 Object[] row = (Object[]) o;
                 resultMap.put((String) row[0], row[1]);
             }
